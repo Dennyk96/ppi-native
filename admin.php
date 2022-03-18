@@ -1,212 +1,177 @@
 <?php
-    ob_start();
-    //cek session
-    session_start();
-
-    if(empty($_SESSION['admin'])){
-        $_SESSION['err'] = '<center>Anda harus login terlebih dahulu!</center>';
-        header("Location: ./");
-        die();
-    } else {
+  $page_title = 'Admin Home Page';
+  require_once('includes/load.php');
+  // Checkin What level user has permission to view this page
+   page_require_level(1);
 ?>
-<!--
-
-Name        : Aplikasi Sederhana Manajemen Surat Menyurat
-Version     : v1.0.1
-Description : Aplikasi untuk mencatat data surat masuk dan keluar secara digital.
-Date        : 2016
-Developer   : M. Rudianto
-Phone/WA    : 0852-3290-4156
-Email       : rudi@masrud.com
-Website     : https://masrud.com
-
--->
-<!doctype html>
-<html lang="en">
-
-<!-- Include Head START -->
-<?php include('include/head.php'); ?>
-<!-- Include Head END -->
-
-<!-- Body START -->
-<body class="bg">
-
-<!-- Header START -->
-<header>
-
-<!-- Include Navigation START -->
-<?php include('include/menu.php'); ?>
-<!-- Include Navigation END -->
-
-</header>
-<!-- Header END -->
-
-<!-- Main START -->
-<main>
-
-    <!-- container START -->
-    <div class="container">
-
-    <?php
-        if(isset($_REQUEST['page'])){
-            $page = $_REQUEST['page'];
-            switch ($page) {
-                case 'tsm':
-                    include "transaksi_surat_masuk.php";
-                    break;
-                case 'ctk':
-                    include "cetak_disposisi.php";
-                    break;
-                case 'tsk':
-                    include "transaksi_surat_keluar.php";
-                    break;
-                case 'asm':
-                    include "agenda_surat_masuk.php";
-                    break;
-                case 'ask':
-                    include "agenda_surat_keluar.php";
-                    break;
-                case 'ref':
-                    include "referensi.php";
-                    break;
-                case 'sett':
-                    include "pengaturan.php";
-                    break;
-                case 'pro':
-                    include "profil.php";
-                    break;
-                case 'gsm':
-                    include "galeri_sm.php";
-                    break;
-                case 'gsk':
-                    include "galeri_sk.php";
-                    break;
-            }
-        } else {
-    ?>
-        <!-- Row START -->
-        <div class="row">
-
-            <!-- Include Header Instansi START -->
-            <?php include('include/header_instansi.php'); ?>
-            <!-- Include Header Instansi END -->
-
-            <!-- Welcome Message START -->
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-content">
-                        <h4>Selamat Datang <?php echo $_SESSION['nama']; ?></h4>
-                        <p class="description">Anda login sebagai
-                        <?php
-                            if($_SESSION['admin'] == 1){
-                                echo "<strong>Super Admin</strong>. Anda memiliki akses penuh terhadap sistem.";
-                            } elseif($_SESSION['admin'] == 2){
-                                echo "<strong>Administrator</strong>. Berikut adalah statistik data yang tersimpan dalam sistem.";
-                            } else {
-                                echo "<strong>Petugas Disposisi</strong>. Berikut adalah statistik data yang tersimpan dalam sistem.";
-                            }?></p>
-                    </div>
-                </div>
-            </div>
-            <!-- Welcome Message END -->
-
-            <?php
-                //menghitung jumlah surat masuk
-                $count1 = mysqli_num_rows(mysqli_query($config, "SELECT * FROM tbl_surat_masuk"));
-
-                //menghitung jumlah surat masuk
-                $count2 = mysqli_num_rows(mysqli_query($config, "SELECT * FROM tbl_surat_keluar"));
-
-                //menghitung jumlah surat masuk
-                $count3 = mysqli_num_rows(mysqli_query($config, "SELECT * FROM tbl_disposisi"));
-
-                //menghitung jumlah klasifikasi
-                $count4 = mysqli_num_rows(mysqli_query($config, "SELECT * FROM tbl_klasifikasi"));
-
-                //menghitung jumlah pengguna
-                $count5 = mysqli_num_rows(mysqli_query($config, "SELECT * FROM tbl_user"));
-            ?>
-
-            <!-- Info Statistic START -->
-            <a href="?page=tsm">
-                <div class="col s12 m4">
-                    <div class="card cyan">
-                        <div class="card-content">
-                            <span class="card-title white-text"><i class="material-icons md-36">mail</i> Jumlah Surat Masuk</span>
-                            <?php echo '<h5 class="white-text link">'.$count1.' Surat Masuk</h5>'; ?>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a href="?page=tsk">
-                <div class="col s12 m4">
-                    <div class="card lime darken-1">
-                        <div class="card-content">
-                            <span class="card-title white-text"><i class="material-icons md-36">drafts</i> Jumlah Surat Keluar</span>
-                            <?php echo '<h5 class="white-text link">'.$count2.' Surat Keluar</h5>'; ?>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <div class="col s12 m4">
-                <div class="card yellow darken-3">
-                    <div class="card-content">
-                        <span class="card-title white-text"><i class="material-icons md-36">description</i> Jumlah Disposisi</span>
-                        <?php echo '<h5 class="white-text link">'.$count3.' Disposisi</h5>'; ?>
-                    </div>
-                </div>
-            </div>
-
-            <a href="?page=ref">
-                <div class="col s12 m4">
-                    <div class="card deep-orange">
-                        <div class="card-content">
-                            <span class="card-title white-text"><i class="material-icons md-36">class</i> Jumlah Klasifikasi Surat</span>
-                            <?php echo '<h5 class="white-text link">'.$count4.' Klasifikasi Surat</h5>'; ?>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-        <?php
-            if($_SESSION['id_user'] == 1 || $_SESSION['admin'] == 2){?>
-                <a href="?page=sett&sub=usr">
-                    <div class="col s12 m4">
-                        <div class="card blue accent-2">
-                            <div class="card-content">
-                                <span class="card-title white-text"><i class="material-icons md-36">people</i> Jumlah Pengguna</span>
-                                <?php echo '<h5 class="white-text link">'.$count5.' Pengguna</h5>'; ?>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            <!-- Info Statistic START -->
-        <?php
-            }
-        ?>
-
-        </div>
-        <!-- Row END -->
-    <?php
-        }
-    ?>
-    </div>
-    <!-- container END -->
-
-</main>
-<!-- Main END -->
-
-<!-- Include Footer START -->
-<?php include('include/footer.php'); ?>
-<!-- Include Footer END -->
-
-</body>
-<!-- Body END -->
-
-</html>
-
 <?php
-    }
+ $c_categorie     = count_by_id('tbl_category');
+ $c_product       = count_by_id('tbl_product');
+ $c_sale          = count_by_id('tbl_sales_invoice');
+ $c_user          = count_by_id('users');
+ $products_sold   = find_higest_saleing_product('10');
+ $recent_products = find_recent_product_added('5');
+ $recent_sales    = find_recent_sale_added('5')
 ?>
+<?php include_once('layouts/header.php'); ?>
+
+<div class="row">
+   <div class="col-md-6">
+     <?php echo display_msg($msg); ?>
+   </div>
+</div>
+  <div class="row">
+    <div class="col-md-3">
+       <div class="panel panel-box clearfix">
+         <div class="panel-icon pull-left bg-green">
+          <i class="glyphicon glyphicon-user"></i>
+        </div>
+        <div class="panel-value pull-right">
+          <h2 class="margin-top"> <?php  echo $c_user['total']; ?> </h2>
+          <p class="text-muted">Users</p>
+        </div>
+       </div>
+    </div>
+    <div class="col-md-3">
+       <div class="panel panel-box clearfix">
+         <div class="panel-icon pull-left bg-red">
+          <i class="glyphicon glyphicon-list"></i>
+        </div>
+        <div class="panel-value pull-right">
+          <h2 class="margin-top"> <?php  echo $c_categorie['total']; ?> </h2>
+          <p class="text-muted">Categories</p>
+        </div>
+       </div>
+    </div>
+    <div class="col-md-3">
+       <div class="panel panel-box clearfix">
+         <div class="panel-icon pull-left bg-blue">
+          <i class="glyphicon glyphicon-shopping-cart"></i>
+        </div>
+        <div class="panel-value pull-right">
+          <h2 class="margin-top"> <?php  echo $c_product['total']; ?> </h2>
+          <p class="text-muted">Products</p>
+        </div>
+       </div>
+    </div>
+    <div class="col-md-3">
+       <div class="panel panel-box clearfix">
+         <div class="panel-icon pull-left bg-yellow">
+          <i class="glyphicon glyphicon-usd"></i>
+        </div>
+        <div class="panel-value pull-right">
+          <h2 class="margin-top"> <?php  echo $c_sale['total']; ?></h2>
+          <p class="text-muted">Sales</p>
+        </div>
+       </div>
+    </div>
+</div>
+  <div class="row">
+   <div class="col-md-4">
+     <div class="panel panel-default">
+       <div class="panel-heading">
+         <strong>
+           <span class="glyphicon glyphicon-th"></span>
+           <span>Highest Saleing Products</span>
+         </strong>
+       </div>
+       <div class="panel-body">
+         <table class="table table-striped table-bordered table-condensed">
+          <thead>
+           <tr>
+             <th>Title</th>
+             <th>Total Sold</th>
+             <th>Total Quantity</th>
+           <tr>
+          </thead>
+          <tbody>
+            <?php foreach ($products_sold as  $product_sold): ?>
+              <tr>
+                <td><?php echo remove_junk(first_character($product_sold['name'])); ?></td>
+                <td><?php echo (int)$product_sold['totalSold']; ?></td>
+                <td><?php echo (int)$product_sold['totalQty']; ?></td>
+              </tr>
+            <?php endforeach; ?>
+          <tbody>
+         </table>
+       </div>
+     </div>
+   </div>
+   <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <strong>
+            <span class="glyphicon glyphicon-th"></span>
+            <span>LATEST SALES</span>
+          </strong>
+        </div>
+        <div class="panel-body">
+          <table class="table table-striped table-bordered table-condensed">
+       <thead>
+         <tr>
+           <th class="text-center" style="width: 50px;">#</th>
+           <th>Product Name</th>
+           <th>Date</th>
+           <th>Total Sale</th>
+         </tr>
+       </thead>
+       <tbody>
+         <?php foreach ($recent_sales as  $recent_sale): ?>
+         <tr>
+           <td class="text-center"><?php echo count_id();?></td>
+           <td>
+            <a href="edit_sale.php?id=<?php echo (int)$recent_sale['id']; ?>">
+             <?php echo remove_junk(first_character($recent_sale['name'])); ?>
+           </a>
+           </td>
+           <td><?php echo remove_junk(ucfirst($recent_sale['date'])); ?></td>
+           <td>$<?php echo remove_junk(first_character($recent_sale['price'])); ?></td>
+        </tr>
+
+       <?php endforeach; ?>
+       </tbody>
+     </table>
+    </div>
+   </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>
+          <span class="glyphicon glyphicon-th"></span>
+          <span>Recently Added Products</span>
+        </strong>
+      </div>
+      <div class="panel-body">
+
+        <div class="list-group">
+      <?php foreach ($recent_products as  $recent_product): ?>
+            <a class="list-group-item clearfix" href="edit_product.php?id=<?php echo    (int)$recent_product['id'];?>">
+                <h4 class="list-group-item-heading">
+                 <?php if($recent_product['media_id'] === '0'): ?>
+                    <img class="img-avatar img-circle" src="uploads/products/no_image.jpg" alt="">
+                  <?php else: ?>
+                  <img class="img-avatar img-circle" src="uploads/products/<?php echo $recent_product['image'];?>" alt="" />
+                <?php endif;?>
+                <?php echo remove_junk(first_character($recent_product['name']));?>
+                  <span class="label label-warning pull-right">
+                 $<?php echo (int)$recent_product['sale_price']; ?>
+                  </span>
+                </h4>
+                <span class="list-group-item-text pull-right">
+                <?php echo remove_junk(first_character($recent_product['categorie'])); ?>
+              </span>
+          </a>
+      <?php endforeach; ?>
+    </div>
+  </div>
+ </div>
+</div>
+ </div>
+  <div class="row">
+
+  </div>
+
+
+
+<?php include_once('layouts/footer.php'); ?>
