@@ -19,7 +19,7 @@
       <div class="logo pull-left"> PPI </div>
       <div class="header-content">
       <div class="header-date pull-left">
-        <strong><?php echo date("F j, Y, g:i a");?></strong>
+        <strong><?php echo date("d F Y, h:i:s A");?></strong>
       </div>
       <div class="pull-right clearfix">
         <ul class="info-menu list-inline list-unstyled">

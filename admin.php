@@ -87,7 +87,7 @@
           <tbody>
             <?php foreach ($products_sold as  $product_sold): ?>
               <tr>
-                <td><?php echo remove_junk(first_character($product_sold['name'])); ?></td>
+                <td><?php echo remove_junk(first_character($product_sold['product_name'])); ?></td>
                 <td><?php echo (int)$product_sold['totalSold']; ?></td>
                 <td><?php echo (int)$product_sold['totalQty']; ?></td>
               </tr>
@@ -121,11 +121,11 @@
            <td class="text-center"><?php echo count_id();?></td>
            <td>
             <a href="edit_sale.php?id=<?php echo (int)$recent_sale['id']; ?>">
-             <?php echo remove_junk(first_character($recent_sale['name'])); ?>
+             <?php echo remove_junk(first_character($recent_sale['product_name'])); ?>
            </a>
            </td>
-           <td><?php echo remove_junk(ucfirst($recent_sale['date'])); ?></td>
-           <td>$<?php echo remove_junk(first_character($recent_sale['price'])); ?></td>
+           <td><?php echo remove_junk(ucfirst($recent_sale['created_on'])); ?></td>
+           <td>$<?php echo remove_junk(first_character($recent_sale['invoice_item_row_total'])); ?></td>
         </tr>
 
        <?php endforeach; ?>
@@ -148,18 +148,13 @@
       <?php foreach ($recent_products as  $recent_product): ?>
             <a class="list-group-item clearfix" href="edit_product.php?id=<?php echo    (int)$recent_product['id'];?>">
                 <h4 class="list-group-item-heading">
-                 <?php if($recent_product['media_id'] === '0'): ?>
-                    <img class="img-avatar img-circle" src="uploads/products/no_image.jpg" alt="">
-                  <?php else: ?>
-                  <img class="img-avatar img-circle" src="uploads/products/<?php echo $recent_product['image'];?>" alt="" />
-                <?php endif;?>
-                <?php echo remove_junk(first_character($recent_product['name']));?>
+                <?php echo remove_junk(first_character($recent_product['product_name']));?>
                   <span class="label label-warning pull-right">
-                 $<?php echo (int)$recent_product['sale_price']; ?>
+                  <?php echo (int)$recent_product['product_sell_price']; ?>
                   </span>
                 </h4>
                 <span class="list-group-item-text pull-right">
-                <?php echo remove_junk(first_character($recent_product['categorie'])); ?>
+                <?php echo remove_junk(first_character($recent_product['category_name'])); ?>
               </span>
           </a>
       <?php endforeach; ?>

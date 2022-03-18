@@ -21,10 +21,10 @@
        <li><a href="add_product.php">Add product</a> </li>
    </ul>
   </li>
-  <li>
+  <!-- <li>
     <a href="media.php" >
       <i class="glyphicon glyphicon-picture"></i>
       <span>Media</span>
     </a>
-  </li>
+  </li> -->
 </ul>

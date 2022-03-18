@@ -210,7 +210,7 @@ function tableExists($table){
    /*--------------------------------------------------------------*/
   function join_product_table(){
     global $db;
-     $sql  =" SELECT p.id, p.product_name, p.product_code, s.searah_name, p.product_cost_price, p.product_sell_price, p.product_type, c.category_name";
+    $sql  =" SELECT p.id, p.product_name, p.product_code, s.searah_name, p.product_cost_price, p.product_sell_price, p.product_type, c.category_name";
     $sql  .=" FROM tbl_product p";
     $sql  .=" JOIN tbl_category c ON c.id = p.category_id";
     $sql  .=" JOIN tbl_searah s ON s.id = p.searah_id";
@@ -260,10 +260,9 @@ function tableExists($table){
   /*--------------------------------------------------------------*/
  function find_recent_product_added($limit){
    global $db;
-   $sql   = " SELECT p.id,p.name,p.sale_price,p.media_id,c.name AS categorie,";
-   $sql  .= "m.file_name AS image FROM products p";
-   $sql  .= " LEFT JOIN categories c ON c.id = p.categorie_id";
-   $sql  .= " LEFT JOIN media m ON m.id = p.media_id";
+   $sql   = " SELECT p.id, p.product_name, p.product_sell_price, c.category_name";
+   $sql  .= " FROM tbl_product p";
+   $sql  .= " LEFT JOIN tbl_category c ON c.id = p.category_id";
    $sql  .= " ORDER BY p.id DESC LIMIT ".$db->escape((int)$limit);
    return find_by_sql($sql);
  }
@@ -295,10 +294,11 @@ function tableExists($table){
  /*--------------------------------------------------------------*/
 function find_recent_sale_added($limit){
   global $db;
-  $sql  = "SELECT s.id,s.qty,s.price,s.date,p.name";
-  $sql .= " FROM sales s";
-  $sql .= " LEFT JOIN products p ON s.product_id = p.id";
-  $sql .= " ORDER BY s.date DESC LIMIT ".$db->escape((int)$limit);
+  $sql  = "SELECT s.id, s.invoice_item_qty, s.invoice_item_row_total, ss.created_on, p.product_name";
+  $sql .= " FROM tbl_sales_invoice_item s";
+  $sql .= " LEFT JOIN tbl_product p ON s.product_id = p.id";
+  $sql .= " LEFT JOIN tbl_sales_invoice ss ON ss.id = s.invoice_id";
+  $sql .= " ORDER BY ss.created_on DESC LIMIT ".$db->escape((int)$limit);
   return find_by_sql($sql);
 }
 /*--------------------------------------------------------------*/
