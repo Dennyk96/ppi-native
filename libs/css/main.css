@@ -221,7 +221,7 @@ body{
   padding: 15px 0;
 }
 table td h6{
-  margin: 0 0 0.2em 0;
+  margin: 0 0 0.1em 0;
 }
 table tfoot tr td:first-child{
   border: 0;
@@ -229,7 +229,7 @@ table tfoot tr td:first-child{
   border-top: 1px solid #ccc;
 }table td h6,table tfoot tr td:last-child{
   color: #000;
-  _font-size: 1.2em;
+  font-size: 1.2em;
   font-weight: normal;
 }
 .form-control{

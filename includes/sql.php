@@ -191,10 +191,6 @@ function tableExists($table){
      if (!$session->isUserLoggedIn(true)):
             $session->msg('d','Please login...');
             redirect('index.php', false);
-      //if Group status Deactive
-     elseif($login_level['group_status'] === '0'):
-           $session->msg('d','This level user has been band!');
-           redirect('home.php',false);
       //cheackin log in User level and Require level is Less than or equal to
      elseif($current_user['user_level'] <= (int)$require_level):
               return true;
@@ -283,10 +279,13 @@ function tableExists($table){
  /*--------------------------------------------------------------*/
  function find_all_sale(){
    global $db;
-   $sql  = "SELECT s.id,s.qty,s.price,s.date,p.name";
-   $sql .= " FROM sales s";
-   $sql .= " LEFT JOIN products p ON s.product_id = p.id";
-   $sql .= " ORDER BY s.date DESC";
+   $sql  = "SELECT ss.invoice_code, ss.invoice_date, c.customer_store_name, e.employee_name, p.product_name, p.product_code, s.invoice_item_qty, ss.invoice_grand_total, ss.created_on";
+  $sql .= " FROM tbl_sales_invoice_item s";
+  $sql .= " LEFT JOIN tbl_sales_invoice ss ON ss.id = s.invoice_id";
+  $sql .= " LEFT JOIN tbl_customer c ON c.id = ss.customer_id";
+  $sql .= " LEFT JOIN tbl_employee e ON e.id = ss.salesman_id";
+  $sql .= " LEFT JOIN tbl_product p ON s.product_id = p.id";
+  $sql .= " GROUP BY ss.invoice_date DESC ";
    return find_by_sql($sql);
  }
  /*--------------------------------------------------------------*/
@@ -308,16 +307,19 @@ function find_sale_by_dates($start_date,$end_date){
   global $db;
   $start_date  = date("Y-m-d", strtotime($start_date));
   $end_date    = date("Y-m-d", strtotime($end_date));
-  $sql  = "SELECT s.date, p.name,p.sale_price,p.buy_price,";
-  $sql .= "COUNT(s.product_id) AS total_records,";
-  $sql .= "SUM(s.qty) AS total_sales,";
-  $sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price,";
-  $sql .= "SUM(p.buy_price * s.qty) AS total_buying_price ";
-  $sql .= "FROM sales s ";
-  $sql .= "LEFT JOIN products p ON s.product_id = p.id";
-  $sql .= " WHERE s.date BETWEEN '{$start_date}' AND '{$end_date}'";
-  $sql .= " GROUP BY DATE(s.date),p.name";
-  $sql .= " ORDER BY DATE(s.date) DESC";
+  
+  $sql = 
+  
+  "SELECT s.created_on, se.searah_name, b.brand_name, p.product_code, p.product_name, p.product_sell_price, p.product_cost_price, COUNT(ss.product_id) AS total_records, SUM(ss.invoice_item_qty) AS total_sales, SUM(p.product_sell_price * ss.invoice_item_qty) AS total_sell_price, SUM(p.product_cost_price * ss.invoice_item_qty) AS total_buy_price
+
+  FROM tbl_sales_invoice s
+  LEFT JOIN tbl_sales_invoice_item ss ON s.id = ss.invoice_id
+  LEFT JOIN tbl_product p ON ss.product_id = p.id
+  LEFT JOIN tbl_brand b ON b.id = p.brand_id
+  LEFT JOIN tbl_searah se ON se.id = p.searah_id
+  WHERE s.created_on BETWEEN '{$start_date}' AND '{$end_date}'
+  GROUP BY s.created_on, b.brand_name
+  ORDER BY s.created_on ASC";
   return $db->query($sql);
 }
 /*--------------------------------------------------------------*/
@@ -325,13 +327,14 @@ function find_sale_by_dates($start_date,$end_date){
 /*--------------------------------------------------------------*/
 function  dailySales($year,$month){
   global $db;
-  $sql  = "SELECT s.qty,";
-  $sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.name,";
-  $sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price";
-  $sql .= " FROM sales s";
+  $sql  = "SELECT s.invoice_item_qty,";
+  $sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.product_name,";
+  $sql .= "SUM(p.product_sell_price * s.invoice_item_qty) AS total_saleing_price";
+  $sql .= " FROM tbl_sales_invoice_item s";
+  $sql .= " LEFT JOIN tbl_sales_invoice ss ON s.invoice_id = ss.id";
   $sql .= " LEFT JOIN products p ON s.product_id = p.id";
-  $sql .= " WHERE DATE_FORMAT(s.date, '%Y-%m' ) = '{$year}-{$month}'";
-  $sql .= " GROUP BY DATE_FORMAT( s.date,  '%e' ),s.product_id";
+  $sql .= " WHERE DATE_FORMAT(ss.created_on, '%Y-%m' ) = '{$year}-{$month}'";
+  $sql .= " GROUP BY DATE_FORMAT( ss.created_on,  '%e' ), s.product_id";
   return find_by_sql($sql);
 }
 /*--------------------------------------------------------------*/

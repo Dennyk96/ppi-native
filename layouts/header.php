@@ -19,7 +19,8 @@
       <div class="logo pull-left"> PPI </div>
       <div class="header-content">
       <div class="header-date pull-left">
-        <strong><?php echo date("d F Y, h:i:s A");?></strong>
+        <strong><?php ini_set('date.timezone', 'Asia/Jakarta');
+          echo  date('d-m-Y H:i:s');?></strong>
       </div>
       <div class="pull-right clearfix">
         <ul class="info-menu list-inline list-unstyled">
