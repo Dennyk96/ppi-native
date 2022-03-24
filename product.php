@@ -12,11 +12,11 @@
      </div>
     <div class="col-md-12">
       <div class="panel panel-default">
-        <div class="panel-heading clearfix">
+        <!-- <div class="panel-heading clearfix">
          <div class="pull-right">
            <a href="add_product.php" class="btn btn-primary">Add New</a>
          </div>
-        </div>
+        </div> -->
         <div class="panel-body">
           <table class="table table-responsive-sm">
             <thead>

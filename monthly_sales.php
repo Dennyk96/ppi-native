@@ -28,20 +28,20 @@
             <thead>
               <tr>
                 <th class="text-center" style="width: 50px;">#</th>
+                <th class="text-center" style="width: 15%;"> Date</th>
                 <th> Product name </th>
                 <th class="text-center" style="width: 15%;"> Quantity sold</th>
                 <th class="text-center" style="width: 15%;"> Total </th>
-                <th class="text-center" style="width: 15%;"> Date </th>
              </tr>
             </thead>
            <tbody>
              <?php foreach ($sales as $sale):?>
              <tr>
                <td class="text-center"><?php echo count_id();?></td>
-               <td><?php echo remove_junk($sale['name']); ?></td>
-               <td class="text-center"><?php echo (int)$sale['qty']; ?></td>
-               <td class="text-center"><?php echo remove_junk($sale['total_saleing_price']); ?></td>
-               <td class="text-center"><?php echo $sale['date']; ?></td>
+               <td class="text-center"><?php echo format_date($sale['tanggal']); ?></td>
+               <td><?php echo remove_junk($sale['product']); ?></td>
+               <td class="text-center"><?php echo (int)$sale['Qty']; ?></td>
+               <td class="text-center">$<?php echo price_format($sale['totalSell']); ?></td>
              </tr>
              <?php endforeach;?>
            </tbody>

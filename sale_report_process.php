@@ -168,7 +168,9 @@ h2{
 <body>
   <?php if($results): ?>
     
-    <h2>Sales Report <strong><?php if(isset($start_date)){ echo $start_date;}?> To <?php if(isset($end_date)){echo $end_date;}?> </strong></h2>
+    <div class="table-wrapper" style="background-color: darkgrey;">
+      <h2>Sales Report <strong><?php if(isset($start_date)){ echo $start_date;}?> To <?php if(isset($end_date)){echo $end_date;}?> </strong></h2>
+    </div>
       
     <div class="table-wrapper">
       <table class="fl-table">
@@ -179,7 +181,7 @@ h2{
               <th>Searah</th>
               <th>Sell Price</th>
               <th>Total Qty</th>
-              <th>TOTAL</th>
+              <th>Total Price</th>
           </tr>
         </thead>
         <tbody>
@@ -188,9 +190,9 @@ h2{
               <td><?php echo remove_junk(ucfirst($result['brand_name']));?> - <br><?php echo remove_junk(ucfirst($result['product_code']));?></td>
               <td><?php echo remove_junk(ucfirst($result['product_name']));?> </td>
               <td><?php echo remove_junk(ucfirst($result['searah_name']));?> </td>
-              <td><?php echo remove_junk($result['product_sell_price']);?></td>
+              <td>$ <?php echo number_format($result['product_sell_price']);?></td>
               <td><?php echo remove_junk($result['total_sales']);?></td>
-              <td><?php echo remove_junk($result['total_sell_price']);?></td>
+              <td>$ <?php echo number_format($result['total_sell_price']);?></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
@@ -205,7 +207,7 @@ h2{
          <tr class="text-right">
            <td colspan="4"></td>
            <td colspan="1">Profit</td>
-           <td> $<?php echo number_format(total_price($results)[1], 2);?></td>
+           <td>$ <?php echo number_format(total_price($results)[1], 2);?></td>
          </tr>
         </tfoot>
       </table>

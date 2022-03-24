@@ -83,11 +83,21 @@ function total_price($totals){
    return array($sum,$profit);
 }
 /*--------------------------------------------------------------*/
+/* Function for find out total saleing price, buying price and profit
+/*--------------------------------------------------------------*/
+function total_payment($totals){
+  $pay = 0;
+  foreach($totals as $total ){
+    $pay += $total['totalPay'];
+  }
+  return array($pay);
+}
+/*--------------------------------------------------------------*/
 /* Function for Readable date time
 /*--------------------------------------------------------------*/
 function read_date($str){
      if($str)
-      return date('F j, Y, g:i:s a', strtotime($str));
+      return date('d F Y', strtotime($str));
      else
       return null;
   }
@@ -116,6 +126,23 @@ function randString($length = 5)
    $str .= $cha[mt_rand(0,strlen($cha))];
   return $str;
 }
+/*--------------------------------------------------------------*/
+/* Function for Number Format dollar
+/*--------------------------------------------------------------*/
+function price_format($value)
+{
+        return number_format($value, 2, ".", ",");
+}
+
+/*--------------------------------------------------------------*/
+/* Function for Format Date
+/*--------------------------------------------------------------*/
+function format_date($date)
+{
+  return date('d-m-Y', strtotime($date));
+ }
+
+
 
 
 ?>
