@@ -1,27 +1,38 @@
-<?php
-  ob_start();
-  require_once('includes/load.php');
-  if($session->isUserLoggedIn(true)) { redirect('home.php', false);}
+<?php 
+/*
+  | Source Code Aplikasi Penjualan Barang Kasir dengan PHP & MYSQL
+  | 
+  | @package   : pos-kasir-php
+  | @file	   : index.php 
+  | @author    : fauzan1892 / Fauzan Falah
+  | @copyright : Copyright (c) 2017-2021 Codekop.com (https://www.codekop.com)
+  | @blog      : https://www.codekop.com/read/source-code-aplikasi-penjualan-barang-kasir-dengan-php-amp-mysql-gratis.html
+  | 
+  | 
+  | 
+  | 
+ */
+
+	@ob_start();
+	session_start();
+
+	if(!empty($_SESSION['admin'])){
+		require 'config.php';
+		include $view;
+		$lihat = new view($config);
+		$toko = $lihat -> toko();
+		//  admin
+			include 'admin/template/header.php';
+			include 'admin/template/sidebar.php';
+				if(!empty($_GET['page'])){
+					include 'admin/module/'.$_GET['page'].'/index.php';
+				}else{
+					include 'admin/template/home.php';
+				}
+			include 'admin/template/footer.php';
+		// end admin
+	}else{
+		echo '<script>window.location="login.php";</script>';
+	}
 ?>
 
-<div class="login-page">
-    <div class="text-center">
-       <h1>Welcome</h1>
-       <p>Sign in to start your session</p>
-     </div>
-     <?php echo display_msg($msg); ?>
-      <form method="post" action="auth_v2.php" class="clearfix">
-        <div class="form-group">
-              <label for="username" class="control-label">Username</label>
-              <input type="name" class="form-control" name="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-            <label for="Password" class="control-label">Password</label>
-            <input type="password" name= "password" class="form-control" placeholder="password">
-        </div>
-        <div class="form-group">
-                <button type="submit" class="btn btn-info  pull-right">Login</button>
-        </div>
-    </form>
-</div>
-<?php include_once('layouts/header.php'); ?>
