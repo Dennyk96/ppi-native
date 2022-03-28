@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+    '0b17741e1be8bc33be28693cd04d2893' => $vendorDir . '/koolreport/core/autoload.php',
 );

@@ -43,7 +43,7 @@ function validate_fields($var){
 /* Function for Display Session Message
    Ex echo display_msg($message);
 /*--------------------------------------------------------------*/
-function display_msg($msg =''){
+function display_msg($msg ='Welcome PPI Report'){
    $output = array();
    if(!empty($msg)) {
       foreach ($msg as $key => $value) {
@@ -138,12 +138,19 @@ function randString($length = 5)
   return $str;
 }
 /*--------------------------------------------------------------*/
-/* Function for Number Format dollar
+/* Function for Number Format
 /*--------------------------------------------------------------*/
 function price_format($value)
 {
         return number_format($value, 2, ".", ",");
 }
+/*--------------------------------------------------------------*/
+/* Function for Number Format dollar
+/*--------------------------------------------------------------*/
+function formatDollars($dollars){
+  return '$ '.sprintf('%0.2f', $dollars);
+}
+
 
 /*--------------------------------------------------------------*/
 /* Function for Format Date

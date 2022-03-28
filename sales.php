@@ -26,7 +26,7 @@ $sales = find_all_sale();
           </div> -->
         </div>
         <div class="panel-body">
-          <table class="table table-striped">
+          <table id="sales" class="table table-striped">
             <thead>
               <tr>
                 <th>Invoice</th>

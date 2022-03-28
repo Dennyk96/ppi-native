@@ -19,6 +19,15 @@
             'reference' => NULL,
             'dev_requirement' => false,
         ),
+        'koolreport/core' => array(
+            'pretty_version' => '5.5.0',
+            'version' => '5.5.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../koolreport/core',
+            'aliases' => array(),
+            'reference' => '40f68b47e98aa48adcc800e029d56c2c99ef01ca',
+            'dev_requirement' => false,
+        ),
         'mpdf/mpdf' => array(
             'pretty_version' => 'v8.0.17',
             'version' => '8.0.17.0',

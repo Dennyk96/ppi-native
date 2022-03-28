@@ -256,9 +256,10 @@ function tableExists($table){
   /*--------------------------------------------------------------*/
  function find_recent_product_added($limit){
    global $db;
-   $sql   = " SELECT p.id, p.product_name, p.product_sell_price, c.category_name";
+   $sql   = " SELECT p.id, p.product_name, p.product_sell_price, c.category_name, se.searah_name";
    $sql  .= " FROM tbl_product p";
    $sql  .= " LEFT JOIN tbl_category c ON c.id = p.category_id";
+   $sql  .= " LEFT JOIN tbl_searah se ON p.searah_id = se.id";
    $sql  .= " ORDER BY p.id DESC LIMIT ".$db->escape((int)$limit);
    return find_by_sql($sql);
  }
@@ -293,11 +294,11 @@ function tableExists($table){
  /*--------------------------------------------------------------*/
 function find_recent_sale_added($limit){
   global $db;
-  $sql  = "SELECT s.id, s.invoice_item_qty, s.invoice_item_row_total, ss.created_on, p.product_name";
+  $sql  = "SELECT s.id, s.invoice_item_qty, ss.invoice_grand_total, ss.created_on, p.product_name, ss.invoice_date";
   $sql .= " FROM tbl_sales_invoice_item s";
   $sql .= " LEFT JOIN tbl_product p ON s.product_id = p.id";
   $sql .= " LEFT JOIN tbl_sales_invoice ss ON ss.id = s.invoice_id";
-  $sql .= " ORDER BY ss.created_on DESC LIMIT ".$db->escape((int)$limit);
+  $sql .= " ORDER BY ss.invoice_date DESC LIMIT ".$db->escape((int)$limit);
   return find_by_sql($sql);
 }
 /*--------------------------------------------------------------*/

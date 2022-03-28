@@ -2,7 +2,7 @@
   $page_title = 'Admin Home Page';
   require_once('includes/load.php');
   // Checkin What level user has permission to view this page
-   page_require_level(1);
+   page_require_level(1, 3);
 ?>
 <?php
  $c_categorie     = count_by_id('tbl_category');
@@ -119,13 +119,9 @@
          <?php foreach ($recent_sales as  $recent_sale): ?>
          <tr>
            <td class="text-center"><?php echo count_id();?></td>
-           <td>
-            <a href="edit_sale.php?id=<?php echo (int)$recent_sale['id']; ?>">
-             <?php echo remove_junk(first_character($recent_sale['product_name'])); ?>
-           </a>
-           </td>
+           <td><?php echo remove_junk(first_character($recent_sale['product_name'])); ?></td>
            <td><?php echo remove_junk(ucfirst($recent_sale['created_on'])); ?></td>
-           <td>$<?php echo remove_junk(first_character($recent_sale['invoice_item_row_total'])); ?></td>
+           <td><?php echo formatDollars($recent_sale['invoice_grand_total']); ?></td>
         </tr>
 
        <?php endforeach; ?>
@@ -146,11 +142,11 @@
 
         <div class="list-group">
       <?php foreach ($recent_products as  $recent_product): ?>
-            <a class="list-group-item clearfix" href="edit_product.php?id=<?php echo    (int)$recent_product['id'];?>">
+            <a class="list-group-item clearfix" href="#">
                 <h4 class="list-group-item-heading">
                 <?php echo remove_junk(first_character($recent_product['product_name']));?>
                   <span class="label label-warning pull-right">
-                  <?php echo (int)$recent_product['product_sell_price']; ?>
+                  <?php echo formatDollars($recent_product['product_sell_price']); ?>
                   </span>
                 </h4>
                 <span class="list-group-item-text pull-right">

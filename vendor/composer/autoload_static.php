@@ -8,6 +8,7 @@ class ComposerStaticInit59ab7a299986c4ee3880553abb5ea40c
 {
     public static $files = array (
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '0b17741e1be8bc33be28693cd04d2893' => __DIR__ . '/..' . '/koolreport/core/autoload.php',
     );
 
     public static $prefixLengthsPsr4 = array (
