@@ -361,7 +361,7 @@ function find_finance_by_dates($start_date,$end_date){
   
   $sql = 
   
-  "SELECT py.payment_code AS payCode, py.payment_date AS payDate, s.invoice_code AS invoice, c.customer_store_name AS customerPay, py.payment_exchange_rate AS ratePay, py.payment_total_amount totalPay, pyt.payment_detail_method AS detailPay
+  "SELECT py.payment_code AS payCode, py.payment_date AS payDate, s.invoice_code AS invoice, c.customer_store_name AS customerPay, py.payment_exchange_rate AS ratePay, py.payment_total_amount totalPay, s.invoice_payment_status AS statusPayment, s.invoice_status AS invoiceStatus
 
   FROM tbl_sales_payment py
   
@@ -390,7 +390,7 @@ function  customer_buy_product($start_date,$end_date){
   LEFT JOIN tbl_searah se ON p.searah_id = se.id
   WHERE s.created_on BETWEEN '{$start_date}' AND '{$end_date}'
   GROUP BY c.customer_store_name, p.product_name
-  ORDER BY TotalQty DESC";
+  ORDER BY TotalQty ASC";
   return find_by_sql($sql);
 }
 ?>

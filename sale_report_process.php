@@ -73,7 +73,7 @@ h2{
           </div>
           <tr>
               <th>Brand - Code</th>
-              <th>Name</th>
+              <th>Product Name</th>
               <th>Searah</th>
               <th>Sell Price</th>
               <th>Total Qty</th>

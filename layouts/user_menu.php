@@ -24,7 +24,7 @@
         <li><a href="sales_report.php">Sales by range </a></li>
         <!-- <li><a href="monthly_sales.php">Monthly sales</a></li>
         <li><a href="daily_sales.php">Daily sales</a> </li> -->
-        <li><a href="sales_report_by_customer.php">Sales by customer</a> </li>
+        <!-- <li><a href="sales_report_by_customer.php">Sales by customer</a> </li> -->
       </ul>
   </li>
   <li>

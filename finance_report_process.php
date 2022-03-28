@@ -78,7 +78,8 @@ h2{
               <th>Customer</th>
               <th>Rate Payment</th>
               <th>Total Payment</th>
-              <th>Detail Payment</th>
+              <th>Status Payment</th>
+              <th>Invoice Status</th>
           </tr>
         </thead>
         <tbody>
@@ -90,7 +91,8 @@ h2{
               <td><?php echo remove_junk(ucfirst($result['customerPay']));?> </td>
               <td><?php echo number_format($result['ratePay']);?></td>
               <td><?php echo number_format($result['totalPay']);?></td>
-              <td><?php echo remove_junk(ucfirst($result['detailPay']));?></td>
+              <td><?php echo remove_junk(ucfirst($result['statusPayment']));?></td>
+              <td><?php echo remove_junk(ucfirst($result['invoiceStatus']));?></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
