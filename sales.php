@@ -42,12 +42,12 @@ $sales = find_all_sale();
              <?php foreach ($sales as $sale):?>
              <tr>
                 <td><?php echo remove_junk($sale['invoice_code']); ?></td>
-                <td><?php echo $sale['invoice_date']; ?></td>
+                <td><?php echo format_date($sale['created_on']); ?></td>
                 <td><?php echo remove_junk($sale['customer_store_name']); ?></td>
                 <td><?php echo remove_junk($sale['employee_name']); ?></td>
                 <td><?php echo remove_junk($sale['product_code']); ?> | <?php echo remove_junk($sale['product_name']); ?></td>
                 <td><?php echo $sale['invoice_item_qty']; ?></td>
-                <td><?php echo remove_junk($sale['invoice_grand_total']); ?></td>
+                <td>Rp <?php echo price_format($sale['invoice_grand_total']); ?></td>
              </tr>
              <?php endforeach;?>
            </tbody>

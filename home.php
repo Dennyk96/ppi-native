@@ -119,7 +119,7 @@
            </a>
            </td>
            <td><?php echo remove_junk(ucfirst($recent_sale['created_on'])); ?></td>
-           <td>$<?php echo remove_junk(first_character($recent_sale['invoice_item_row_total'])); ?></td>
+           <td>$<?php echo remove_junk(first_character($recent_sale['invoice_grand_total'])); ?></td>
         </tr>
 
        <?php endforeach; ?>

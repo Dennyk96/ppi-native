@@ -73,14 +73,12 @@ function redirect($url, $permanent = false)
 /* Function for find out total saleing price, buying price and profit
 /*--------------------------------------------------------------*/
 function total_price($totals){
-   $sum = 0;
-   $sub = 0;
+   $totSell = 0;
+   $totBuy = 0;
    foreach($totals as $total ){
-     $sum += $total['total_sell_price'];
-     $sub += $total['total_buy_price'];
-     $profit = $sum - $sub;
+     $totSell += $total['total_sell_price'];
    }
-   return array($sum,$profit);
+   return array($totSell);
 }
 /*--------------------------------------------------------------*/
 /* Function for find out total Qty
@@ -157,7 +155,7 @@ function formatDollars($dollars){
 /*--------------------------------------------------------------*/
 function format_date($date)
 {
-  return date('d-m-Y', strtotime($date));
+  return date('Y-m-d', strtotime($date));
  }
 
 
