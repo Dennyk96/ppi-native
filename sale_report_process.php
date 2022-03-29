@@ -72,33 +72,33 @@ h2{
             <h2>Sales Report <strong><?php if(isset($start_date)){ echo $start_date;}?> To <?php if(isset($end_date)){echo $end_date;}?> </strong></h2>
           </div>
           <tr>
-              <th>Brand - Code</th>
-              <th>Product Name</th>
-              <th>Searah</th>
-              <th>Sell Price</th>
-              <th>Total Qty</th>
-              <th>Total Price</th>
+              <th>Invoice</th>
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Salesman</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Grand Total</th>
           </tr>
         </thead>
         <tbody>
           <?php foreach($results as $result): ?>
            <tr>
-              <td><?php echo remove_junk(ucfirst($result['brand_name']));?> - <br><strong><?php echo remove_junk(ucfirst($result['product_code']));?></strong></td>
-              <td><?php echo remove_junk(ucfirst($result['product_name']));?> </td>
-              <td><?php echo remove_junk(ucfirst($result['searah_name']));?> </td>
-              <td>$ <?php echo number_format($result['product_sell_price']);?></td>
-              <td><?php echo remove_junk($result['total_sales']);?></td>
-              <td>$ <?php echo number_format($result['total_sell_price']);?></td>
+              <td><?php echo remove_junk(ucfirst($result['invoice']));?> </td>
+              <td><?php echo format_date($result['invoiceDate']);?> </td>
+              <td><?php echo remove_junk(ucfirst($result['customer']));?> </td>
+              <td><?php echo remove_junk(ucfirst($result['salesman']));?> </td>
+              <td><?php echo remove_junk(ucfirst($result['productCode']));?> - <strong><?php echo remove_junk(ucfirst($result['productName']));?></strong></td>
+              <td><?php echo remove_junk($result['quantityTotal']);?></td>
+              <td><?php echo number_format($result['invoice_grand_total']);?></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
         <tfoot>
          <tr>
-           <td colspan="4"></td>
+           <td colspan="5"></td>
            <td colspan="1" style="font-size: 16pt;">Grand Total</td>
-           <td style="font-size: 16pt;"> $
-           <?php echo number_format(total_price($results)[0], 2);?>
-          </td>
+           <td style="font-size: 16pt;"><?php echo number_format(total_price($results)[0], 2);?></td>
          </tr>
         </tfoot>
       </table>

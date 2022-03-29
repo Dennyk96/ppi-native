@@ -311,16 +311,15 @@ function find_sale_by_dates($start_date,$end_date){
   
   $sql = 
   
-  "SELECT s.created_on, se.searah_name, b.brand_name, p.product_code, p.product_name, p.product_sell_price, p.product_cost_price, COUNT(ss.product_id) AS total_records, ss.invoice_item_qty AS total_sales, (p.product_sell_price * ss.invoice_item_qty) AS total_sell_price, SUM(p.product_cost_price * ss.invoice_item_qty) AS total_buy_price
+  "SELECT s.invoice_code AS invoice, s.created_on AS invoiceCreate, c.customer_store_name AS customer, e.employee_name AS salesman, p.product_code AS productCode, p.product_name AS productName, s.invoice_grand_total, s.invoice_date AS invoiceDate, ss.invoice_item_qty AS quantityTotal
 
   FROM tbl_sales_invoice s
   LEFT JOIN tbl_sales_invoice_item ss ON s.id = ss.invoice_id
   LEFT JOIN tbl_product p ON ss.product_id = p.id
-  LEFT JOIN tbl_brand b ON b.id = p.brand_id
-  LEFT JOIN tbl_searah se ON se.id = p.searah_id
+  LEFT JOIN tbl_employee e ON s.salesman_id = e.id
+  LEFT JOIN tbl_customer c ON s.customer_id = c.id
   WHERE s.created_on BETWEEN '{$start_date}' AND '{$end_date}'
-  GROUP BY s.created_on, b.brand_name
-  ORDER BY s.created_on ASC";
+  GROUP BY invoiceCreate";
   return $db->query($sql);
 }
 /*--------------------------------------------------------------*/

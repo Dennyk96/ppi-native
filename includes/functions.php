@@ -73,12 +73,11 @@ function redirect($url, $permanent = false)
 /* Function for find out total saleing price, buying price and profit
 /*--------------------------------------------------------------*/
 function total_price($totals){
-   $totSell = 0;
-   $totBuy = 0;
+   $grandTotal = 0;
    foreach($totals as $total ){
-     $totSell += $total['total_sell_price'];
+     $grandTotal += $total['invoice_grand_total'];
    }
-   return array($totSell);
+   return array($grandTotal);
 }
 /*--------------------------------------------------------------*/
 /* Function for find out total Qty
