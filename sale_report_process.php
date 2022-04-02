@@ -78,6 +78,7 @@ h2{
               <th>Salesman</th>
               <th>Product</th>
               <th>Quantity</th>
+              <th>Sub Total</th>
               <th>Grand Total</th>
           </tr>
         </thead>
@@ -90,15 +91,21 @@ h2{
               <td><?php echo remove_junk(ucfirst($result['salesman']));?> </td>
               <td><?php echo remove_junk(ucfirst($result['productCode']));?> - <strong><?php echo remove_junk(ucfirst($result['productName']));?></strong></td>
               <td><?php echo remove_junk($result['quantityTotal']);?></td>
-              <td><?php echo number_format($result['invoice_grand_total']);?></td>
+              <td><?php echo remove_junk($result['invoiceSubTotal']);?></td>
+              <td><?php echo remove_junk($result['invoice_grand_total']);?></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
         <tfoot>
          <tr>
-           <td colspan="5"></td>
-           <td colspan="1" style="font-size: 16pt;">Grand Total</td>
-           <td style="font-size: 16pt;"><?php echo number_format(total_price($results)[0], 2);?></td>
+           <td style="font-size: 14pt;"><strong>TOTAL</strong></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td><strong><?php echo number_format(total_qty($results)[0], 2);?></strong></td>
+           <td><strong><?php echo price_format(sub_total($results)[0], 2);?></strong></td>
+           <td><strong><?php echo price_format(grand_total($results)[0], 2);?></strong></td>
          </tr>
         </tfoot>
       </table>
@@ -125,7 +132,10 @@ h2{
         </script>
     
         <!-- fungsi datatable -->
-        <script>
+        <script type="text/javascript">
+          var totalSubTotal;
+          var totalGrand;
+
             $(document).ready(function () {
                 $('#sales_report').DataTable({
                     // script untuk membuat export data 

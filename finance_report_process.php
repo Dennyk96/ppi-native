@@ -97,13 +97,15 @@ h2{
         <?php endforeach; ?>
         </tbody>
         <tfoot>
-            <tr>
-            <td colspan="4"></td>
-            <td colspan="1" style="font-size: 16pt;">TOTAL</td>
-            <td style="font-size: 16pt;"> Rp
-            <?php echo number_format(total_payment($results)[0], 2);?>
-            </td>
-          </tr>
+            <td style="font-size: 14pt;"><strong>TOTAL</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><strong><?php echo number_format(total_payment($results)[0], 2);?></strong></td>
+            <td><strong></strong></td>
+            <td><strong></strong></td>
+         </tr>
         </tfoot>
       </table>
     </div>

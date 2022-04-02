@@ -72,7 +72,7 @@ function redirect($url, $permanent = false)
 /*--------------------------------------------------------------*/
 /* Function for find out total saleing price, buying price and profit
 /*--------------------------------------------------------------*/
-function total_price($totals){
+function grand_total($totals){
    $grandTotal = 0;
    foreach($totals as $total ){
      $grandTotal += $total['invoice_grand_total'];
@@ -80,12 +80,22 @@ function total_price($totals){
    return array($grandTotal);
 }
 /*--------------------------------------------------------------*/
+/* Function for find out total saleing price, buying price and profit
+/*--------------------------------------------------------------*/
+function sub_total($totals){
+  $grandTotal = 0;
+  foreach($totals as $total ){
+    $grandTotal += $total['invoiceSubTotal'];
+  }
+  return array($grandTotal);
+}
+/*--------------------------------------------------------------*/
 /* Function for find out total Qty
 /*--------------------------------------------------------------*/
 function total_qty($totals){
   $qty = 0;
   foreach($totals as $total ){
-    $qty += $total['TotalQty'];
+    $qty += $total['quantityTotal'];
     $total_qty = $qty;
   }
   return array($qty,$total_qty);

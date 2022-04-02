@@ -306,20 +306,21 @@ function find_recent_sale_added($limit){
 /*--------------------------------------------------------------*/
 function find_sale_by_dates($start_date,$end_date){
   global $db;
-  $start_date  = date("Y-m-d", strtotime($start_date));
-  $end_date    = date("Y-m-d", strtotime($end_date));
+  $start_date  = date('Y-m-d', strtotime($start_date));
+  $end_date    = date('Y-m-d', strtotime($end_date));
   
   $sql = 
   
-  "SELECT s.invoice_code AS invoice, s.created_on AS invoiceCreate, c.customer_store_name AS customer, e.employee_name AS salesman, p.product_code AS productCode, p.product_name AS productName, s.invoice_grand_total, s.invoice_date AS invoiceDate, ss.invoice_item_qty AS quantityTotal
+  "SELECT s.invoice_code AS invoice, s.created_on AS invoiceCreate, c.customer_store_name AS customer, e.employee_name AS salesman, p.product_code AS productCode, p.product_name AS productName, s.invoice_grand_total, s.invoice_date AS invoiceDate, SUM(ss.invoice_item_qty) AS quantityTotal, s.invoice_date AS invoiceDate, s.invoice_subtotal AS invoiceSubTotal
 
   FROM tbl_sales_invoice s
   LEFT JOIN tbl_sales_invoice_item ss ON s.id = ss.invoice_id
   LEFT JOIN tbl_product p ON ss.product_id = p.id
   LEFT JOIN tbl_employee e ON s.salesman_id = e.id
   LEFT JOIN tbl_customer c ON s.customer_id = c.id
-  WHERE s.created_on BETWEEN '{$start_date}' AND '{$end_date}'
-  GROUP BY invoiceCreate";
+  WHERE s.invoice_date BETWEEN '{$start_date}' AND '{$end_date}'
+  GROUP BY s.invoice_date, s.invoice_code
+  ORDER BY s.invoice_date ASC";
   return $db->query($sql);
 }
 /*--------------------------------------------------------------*/
