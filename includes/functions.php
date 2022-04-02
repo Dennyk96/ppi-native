@@ -72,40 +72,39 @@ function redirect($url, $permanent = false)
 /*--------------------------------------------------------------*/
 /* Function for find out total saleing price, buying price and profit
 /*--------------------------------------------------------------*/
-function grand_total($totals){
-   $grandTotal = 0;
-   foreach($totals as $total ){
-     $grandTotal += $total['invoice_grand_total'];
+function grand_total($grandTotals){
+   $grand_total = 0;
+   foreach($grandTotals as $total ){
+     $grand_total += $total['invoice_grand_total'];
    }
-   return array($grandTotal);
+   return array($grand_total);
 }
 /*--------------------------------------------------------------*/
 /* Function for find out total saleing price, buying price and profit
 /*--------------------------------------------------------------*/
-function sub_total($totals){
-  $grandTotal = 0;
-  foreach($totals as $total ){
-    $grandTotal += $total['invoiceSubTotal'];
+function sub_total($subTotals){
+  $sub_total = 0;
+  foreach($subTotals as $total ){
+    $sub_total += $total['invoiceSubTotal'];
   }
-  return array($grandTotal);
+  return array($sub_total);
 }
 /*--------------------------------------------------------------*/
 /* Function for find out total Qty
 /*--------------------------------------------------------------*/
-function total_qty($totals){
+function total_qty($totalQty){
   $qty = 0;
-  foreach($totals as $total ){
+  foreach($totalQty as $total ){
     $qty += $total['quantityTotal'];
-    $total_qty = $qty;
   }
-  return array($qty,$total_qty);
+  return array($qty);
 }
 /*--------------------------------------------------------------*/
 /* Function for find out total saleing price, buying price and profit
 /*--------------------------------------------------------------*/
-function total_payment($totals){
+function total_payment($totalPayment){
   $pay = 0;
-  foreach($totals as $total ){
+  foreach($totalPayment as $total ){
     $pay += $total['totalPay'];
   }
   return array($pay);
@@ -157,17 +156,11 @@ function price_format($value)
 function formatDollars($dollars){
   return '$ '.sprintf('%0.2f', $dollars);
 }
-
-
 /*--------------------------------------------------------------*/
 /* Function for Format Date
 /*--------------------------------------------------------------*/
 function format_date($date)
 {
   return date('Y-m-d', strtotime($date));
- }
-
-
-
-
+}
 ?>

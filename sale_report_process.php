@@ -91,8 +91,8 @@ h2{
               <td><?php echo remove_junk(ucfirst($result['salesman']));?> </td>
               <td><?php echo remove_junk(ucfirst($result['productCode']));?> - <strong><?php echo remove_junk(ucfirst($result['productName']));?></strong></td>
               <td><?php echo remove_junk($result['quantityTotal']);?></td>
-              <td><?php echo remove_junk($result['invoiceSubTotal']);?></td>
-              <td><?php echo remove_junk($result['invoice_grand_total']);?></td>
+              <td><?php echo number_format($result['invoiceSubTotal'] - $result['invoiceDiscount']);?></td>
+              <td><?php echo number_format($result['invoice_grand_total']);?></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
@@ -104,8 +104,8 @@ h2{
            <td></td>
            <td></td>
            <td><strong><?php echo number_format(total_qty($results)[0], 2);?></strong></td>
-           <td><strong><?php echo price_format(sub_total($results)[0], 2);?></strong></td>
-           <td><strong><?php echo price_format(grand_total($results)[0], 2);?></strong></td>
+           <td><strong><?php echo number_format(sub_total($results)[0], 2);?></strong></td>
+           <td><strong><?php echo number_format(grand_total($results)[0], 2);?></strong></td>
          </tr>
         </tfoot>
       </table>
@@ -117,8 +117,8 @@ h2{
      endif;
   ?>
 
-  <!-- jquery -->
-  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <!-- jquery -->
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <!-- jquery datatable -->
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
     
@@ -133,9 +133,6 @@ h2{
     
         <!-- fungsi datatable -->
         <script type="text/javascript">
-          var totalSubTotal;
-          var totalGrand;
-
             $(document).ready(function () {
                 $('#sales_report').DataTable({
                     // script untuk membuat export data 
@@ -146,19 +143,23 @@ h2{
                     buttons: [
                           {
                               extend: 'excelHtml5',
+                              
+                              titleAttr: 'Excel',
                               title: 'Sales Report <?php if(isset($start_date)){ echo $start_date;}?> To <?php if(isset($end_date)){echo $end_date;}?>',
                           },
                           {
                               extend: 'pdfHtml5',
+                              
                               title: 'Sales Report <?php if(isset($start_date)){ echo $start_date;}?> To <?php if(isset($end_date)){echo $end_date;}?>',
                               download: 'open',
-                              pageSize: 'A4'
+                              pageSize: 'A4',
+                              titleAttr: 'PDF',
                           }
                       ]
                 })
             });
     
-        </script>
+      </script>
 </body>
 </html>
 <?php if(isset($db)) { $db->db_disconnect(); } ?>

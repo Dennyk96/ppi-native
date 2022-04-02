@@ -268,7 +268,7 @@ function tableExists($table){
  /*--------------------------------------------------------------*/
  function find_higest_saleing_product($limit){
    global $db;
-   $sql  = "SELECT p.product_name, COUNT(s.product_id) AS totalSold, s.invoice_item_qty AS totalQty";
+   $sql  = "SELECT p.product_name, COUNT(s.product_id) AS totalSold, SUM(s.invoice_item_qty) AS totalQty";
    $sql .= " FROM tbl_sales_invoice_item s";
    $sql .= " JOIN tbl_product p ON p.id = s.product_id ";
    $sql .= " GROUP BY s.product_id";
@@ -298,6 +298,7 @@ function find_recent_sale_added($limit){
   $sql .= " FROM tbl_sales_invoice_item s";
   $sql .= " LEFT JOIN tbl_product p ON s.product_id = p.id";
   $sql .= " LEFT JOIN tbl_sales_invoice ss ON ss.id = s.invoice_id";
+  $sql .= " GROUP BY ss.invoice_date, p.product_name";
   $sql .= " ORDER BY ss.invoice_date DESC LIMIT ".$db->escape((int)$limit);
   return find_by_sql($sql);
 }
@@ -311,7 +312,7 @@ function find_sale_by_dates($start_date,$end_date){
   
   $sql = 
   
-  "SELECT s.invoice_code AS invoice, s.created_on AS invoiceCreate, c.customer_store_name AS customer, e.employee_name AS salesman, p.product_code AS productCode, p.product_name AS productName, s.invoice_grand_total, s.invoice_date AS invoiceDate, SUM(ss.invoice_item_qty) AS quantityTotal, s.invoice_date AS invoiceDate, s.invoice_subtotal AS invoiceSubTotal
+  "SELECT s.invoice_code AS invoice, s.created_on AS invoiceCreate, c.customer_store_name AS customer, e.employee_name AS salesman, p.product_code AS productCode, p.product_name AS productName, s.invoice_grand_total, s.invoice_date AS invoiceDate, SUM(ss.invoice_item_qty) AS quantityTotal, s.invoice_date AS invoiceDate, s.invoice_subtotal AS invoiceSubTotal, s.invoice_disc_amount AS invoiceDiscount
 
   FROM tbl_sales_invoice s
   LEFT JOIN tbl_sales_invoice_item ss ON s.id = ss.invoice_id

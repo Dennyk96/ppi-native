@@ -117,7 +117,7 @@
            <td class="text-center"><?php echo count_id();?></td>
            <td><?php echo remove_junk(first_character($recent_sale['product_name'])); ?></td>
            <td><?php echo remove_junk(ucfirst($recent_sale['created_on'])); ?></td>
-           <td><?php echo formatDollars($recent_sale['invoice_grand_total']); ?></td>
+           <td><?php echo number_format($recent_sale['invoice_grand_total']); ?></td>
         </tr>
 
        <?php endforeach; ?>
