@@ -19,6 +19,15 @@
             'reference' => NULL,
             'dev_requirement' => false,
         ),
+        'components/jquery' => array(
+            'pretty_version' => '3.6.0',
+            'version' => '3.6.0.0',
+            'type' => 'component',
+            'install_path' => __DIR__ . '/../components/jquery',
+            'aliases' => array(),
+            'reference' => '6cf38ee1fd04b6adf8e7dda161283aa35be818c3',
+            'dev_requirement' => false,
+        ),
         'koolreport/core' => array(
             'pretty_version' => '5.5.0',
             'version' => '5.5.0.0',
@@ -44,6 +53,15 @@
             'install_path' => __DIR__ . '/../myclabs/deep-copy',
             'aliases' => array(),
             'reference' => '14daed4296fae74d9e3201d2c4925d1acb7aa614',
+            'dev_requirement' => false,
+        ),
+        'nicolaskruchten/pivottable' => array(
+            'pretty_version' => 'v2.23.0',
+            'version' => '2.23.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nicolaskruchten/pivottable',
+            'aliases' => array(),
+            'reference' => 'a9cabee5382be0aaf0984ac906d9fa2e0376d2c1',
             'dev_requirement' => false,
         ),
         'paragonie/random_compat' => array(
