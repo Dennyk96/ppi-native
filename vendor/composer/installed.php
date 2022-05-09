@@ -28,6 +28,15 @@
             'reference' => '6cf38ee1fd04b6adf8e7dda161283aa35be818c3',
             'dev_requirement' => false,
         ),
+        'geekcom/phpjasper' => array(
+            'pretty_version' => '3.3.1',
+            'version' => '3.3.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../geekcom/phpjasper',
+            'aliases' => array(),
+            'reference' => 'df25051c1c50410d89d51fa84b8b6457b3c1e851',
+            'dev_requirement' => false,
+        ),
         'koolreport/core' => array(
             'pretty_version' => '5.5.0',
             'version' => '5.5.0.0',

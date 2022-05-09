@@ -2,6 +2,7 @@
     "require": {
         "mpdf/mpdf": "^8.0",
         "koolreport/core": "^5.5",
-        "nicolaskruchten/pivottable": "^2.23"
+        "nicolaskruchten/pivottable": "^2.23",
+        "geekcom/phpjasper": "^3.3"
     }
 }

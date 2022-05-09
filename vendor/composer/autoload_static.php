@@ -19,6 +19,7 @@ class ComposerStaticInit59ab7a299986c4ee3880553abb5ea40c
         'P' => 
         array (
             'Psr\\Log\\' => 8,
+            'PHPJasper\\' => 10,
         ),
         'M' => 
         array (
@@ -38,6 +39,10 @@ class ComposerStaticInit59ab7a299986c4ee3880553abb5ea40c
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'PHPJasper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/geekcom/phpjasper/src',
         ),
         'Mpdf\\' => 
         array (

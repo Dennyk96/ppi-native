@@ -12,9 +12,9 @@
 |
 |
 */
-  define( 'DB_HOST', '192.168.0.119' );               // Set database host
-  define( 'DB_USER', 'ppi_report' );                  // Set database user
-  define( 'DB_PASS', 'Denki@05121996' );              // Set database password
-  define( 'DB_NAME', 'ppi' );                         // Set database name
+  define( 'DB_HOST', 'localhost' );               // Set database host
+  define( 'DB_USER', 'root' );                  // Set database user
+  define( 'DB_PASS', '' );              // Set database password
+  define( 'DB_NAME', 'ppi_native' );                         // Set database name
 
 ?>
